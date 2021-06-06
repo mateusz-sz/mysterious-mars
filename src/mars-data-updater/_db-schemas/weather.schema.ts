@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { WeatherApiObject } from '../interfaces/weather-api-object';
+import { WeatherApiObject } from '../_nasa-api-interfaces/weather-api-object';
 
 export type WeatherDocument = Weather & Document;
 

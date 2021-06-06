@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { APODApiObject } from '../interfaces/apod-api-object';
+import { APODApiObject } from '../_nasa-api-interfaces/apod-api-object';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type APODDocument = APOD & Document;
