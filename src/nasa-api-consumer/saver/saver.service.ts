@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { NasaApiRetrieverService } from '../nasa-api-retriever/nasa-api-retriever.service';
-import { Weather, WeatherDocument } from '../_db-schemas/weather.schema';
+import { ApiRetrieverService } from '../api-retriever/api-retriever.service';
+import { Weather, WeatherDocument } from '../../_db-schemas/weather.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { APOD, APODDocument } from '../_db-schemas/apod.schema';
+import { APOD, APODDocument } from '../../_db-schemas/apod.schema';
 import * as moment from 'moment';
 import {
   RoverPhoto,
   RoverPhotoDocument,
-} from '../_db-schemas/rover-photo-model';
+} from '../../_db-schemas/rover-photo-model';
 import { MarsRoverName } from '../../_types/mars-rover-name';
 
 @Injectable()
-export class MarsDataSaverService {
+export class SaverService {
   constructor(
     @InjectModel('Weather')
     private readonly weatherModel: Model<WeatherDocument>,
@@ -21,7 +21,7 @@ export class MarsDataSaverService {
     private readonly APODModel: Model<APODDocument>,
     @InjectModel('RoverPhoto')
     private readonly roverPhotoModel: Model<RoverPhotoDocument>,
-    private retriever: NasaApiRetrieverService,
+    private retriever: ApiRetrieverService,
   ) {}
 
   @Cron(CronExpression.EVERY_DAY_AT_1AM)

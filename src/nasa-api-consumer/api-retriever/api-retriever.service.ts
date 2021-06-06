@@ -3,16 +3,16 @@ import { Observable, combineLatest } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { WeatherApiObject } from '../_nasa-api-interfaces/weather-api-object';
 import { map } from 'rxjs/operators';
-import { Weather } from '../_db-schemas/weather.schema';
-import { APOD } from '../_db-schemas/apod.schema';
+import { Weather } from '../../_db-schemas/weather.schema';
+import { APOD } from '../../_db-schemas/apod.schema';
 import { APODApiObject } from '../_nasa-api-interfaces/apod-api-object';
 import * as moment from 'moment';
-import { RoverPhoto } from '../_db-schemas/rover-photo-model';
+import { RoverPhoto } from '../../_db-schemas/rover-photo-model';
 import { RoverPhotoApiObject } from '../_nasa-api-interfaces/rover-photo-api-object';
 import { MarsRoverName } from '../../_types/mars-rover-name';
 
 @Injectable()
-export class NasaApiRetrieverService {
+export class ApiRetrieverService {
   private readonly API_BASE_URL = 'https://api.nasa.gov';
   private readonly API_KEY = 'FX5YScNJBIYW3fRD8qeoNiTMw84QvWo7UxJl9Dpz';
 
@@ -38,7 +38,7 @@ export class NasaApiRetrieverService {
   getAPOD(date?: string): Observable<APOD> {
     let requestUrl = `${this.API_BASE_URL}/planetary/apod?api_key=${this.API_KEY}`;
     if (date) {
-      if (!NasaApiRetrieverService.isDateValid(date)) {
+      if (!ApiRetrieverService.isDateValid(date)) {
         throw new Error('Data must be in format "YYYY-MM-DD"');
       }
       requestUrl += `&date=${date}`;
@@ -60,7 +60,7 @@ export class NasaApiRetrieverService {
     startDate: string,
     endDate?: string,
   ): Observable<APOD[]> {
-    if (!NasaApiRetrieverService.isDateValid(startDate)) {
+    if (!ApiRetrieverService.isDateValid(startDate)) {
       throw new Error('The date must be in format "YYYY-MM-DD"!');
     }
     if (moment(startDate).isAfter(endDate)) {
@@ -71,7 +71,7 @@ export class NasaApiRetrieverService {
 
     let requestUrl = `${this.API_BASE_URL}/planetary/apod?api_key=${this.API_KEY}&start_date=${startDate}`;
     if (endDate) {
-      if (!NasaApiRetrieverService.isDateValid(endDate)) {
+      if (!ApiRetrieverService.isDateValid(endDate)) {
         throw new Error('The date must be in format "YYYY-MM-DD"!');
       }
       requestUrl += `&end_date=${endDate}`;

@@ -1,5 +1,5 @@
-import { RoverPhotoApiObject } from '../_nasa-api-interfaces/rover-photo-api-object';
-import { MarsRoverName } from '../../_types/mars-rover-name';
+import { RoverPhotoApiObject } from '../nasa-api-consumer/_nasa-api-interfaces/rover-photo-api-object';
+import { MarsRoverName } from '../_types/mars-rover-name';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
