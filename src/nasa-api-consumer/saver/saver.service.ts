@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ApiRetrieverService } from '../api-retriever/api-retriever.service';
 import { Weather, WeatherDocument } from '../../_db-schemas/weather.schema';
 import { InjectModel } from '@nestjs/mongoose';
@@ -23,6 +23,12 @@ export class SaverService {
     private readonly roverPhotoModel: Model<RoverPhotoDocument>,
     private retriever: ApiRetrieverService,
   ) {}
+
+  onModuleInit() {
+    this.saveWeather();
+    this.saveAPOD();
+    this.saveDailyRoverPhotos();
+  }
 
   @Cron(CronExpression.EVERY_DAY_AT_1AM)
   saveWeather(): void {
